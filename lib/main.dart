@@ -17,6 +17,17 @@ class TikTokApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: const Color(0xFFE9435A),
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: Sizes.size16 + Sizes.size2,
+              fontWeight: FontWeight.w600,
+            ),
+            centerTitle: true),
       ),
       home: const Padding(
         padding: EdgeInsets.all(Sizes.size14),
