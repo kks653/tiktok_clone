@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import 'tutorial_screen.dart';
 import 'widgets/interest_button.dart';
 
 const interests = [
@@ -56,6 +57,11 @@ class _InterestsScreenState extends State<InterestsScreen> {
   final ScrollController _scrollController = ScrollController();
 
   bool _showTitle = false;
+
+  void _onNextTap() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const TutorialScreen()));
+  }
 
   void _onScroll() {
     if (_scrollController.offset > 100) {
@@ -140,20 +146,23 @@ class _InterestsScreenState extends State<InterestsScreen> {
               left: Sizes.size24,
               right: Sizes.size24,
             ),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size20,
-              ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-              ),
-              child: const Text(
-                "Next",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: Sizes.size16,
+            child: GestureDetector(
+              onTap: _onNextTap,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size20,
                 ),
-                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: const Text(
+                  "Next",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Sizes.size16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           )),
