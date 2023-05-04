@@ -3,6 +3,7 @@ import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import '../onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -23,7 +24,8 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        print(formData.values);
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const InterestsScreen()));
       }
     }
   }
@@ -46,6 +48,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                     autofocus: true,
                     decoration: const InputDecoration(hintText: "Email"),
                     validator: (value) {
+                      if (value != null && value.isEmpty) {
+                        return "Please write your email.";
+                      }
                       return null;
                     },
                     onSaved: (newValue) {
