@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/features/main_navigation/stf_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/nav_tab.dart';
 
+import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import 'widgets/post_video_button.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -14,6 +16,8 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
+  bool _onTapDown = false;
+  Color buttonColor = Colors.white;
 
   final screens = [
     const Center(
@@ -55,6 +59,21 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _onPostVideoButtonTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              "Record video",
+            ),
+          ),
+        ),
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   @override
@@ -100,6 +119,24 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               selectedIcon: FontAwesomeIcons.solidCompass,
               onTap: () => _onTap(1),
             ),
+            Gaps.h24,
+            GestureDetector(
+              onTapDown: (details) {
+                setState(() {
+                  _onTapDown = true;
+                });
+              },
+              onPanUpdate: (details) {
+                setState(() {
+                  _onTapDown = true;
+                });
+              },
+              onTap: _onPostVideoButtonTap,
+              child: PostVideoButton(
+                onTapDown: _onTapDown,
+              ),
+            ),
+            Gaps.h24,
             NavTab(
               text: "Inbox",
               isSelected: _selectedIndex == 3,
