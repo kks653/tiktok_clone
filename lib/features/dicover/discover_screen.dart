@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,20 +24,38 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _textEditingController =
       TextEditingController(text: "Text controller");
 
+  bool _isWriting = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void _stopWriting() {
     FocusScope.of(context).unfocus();
   }
 
-  void _onTabIndexChanged(int index) {
+  void _onTabIndexChanged() {
     FocusScope.of(context).unfocus();
   }
 
   void _onSearchChanged(String value) {
-    print("Searching for $value");
+    setState(() {
+      _isWriting = value.isNotEmpty;
+    });
   }
 
   void _onSearchSubmitted(String value) {
-    print("Submitted $value");
+    // TODO
+  }
+
+  void _onTapClear() {
+    _textEditingController.clear();
+
+    setState(() {
+      _isWriting = _textEditingController.value.text.isNotEmpty;
+    });
   }
 
   @override
@@ -54,15 +71,64 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          automaticallyImplyLeading: true,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const FaIcon(
+                FontAwesomeIcons.filter,
+              ),
+            ),
+          ],
+          centerTitle: true,
           elevation: 1,
-          title: CupertinoSearchTextField(
+          title: TextField(
+            //maxLines: 1,
+            //maxLength: 20,
             controller: _textEditingController,
-            placeholder: "검색",
             onChanged: _onSearchChanged,
-            onSubmitted: _onSearchSubmitted,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.grey.shade200,
+              border: const OutlineInputBorder(
+                borderSide: BorderSide.none,
+              ),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: Sizes.size14,
+                  horizontal: Sizes.size14,
+                ),
+                child: FaIcon(
+                  FontAwesomeIcons.magnifyingGlass,
+                  color: Colors.black,
+                  size: Sizes.size16 + Sizes.size2,
+                ),
+              ),
+              hintText: "Search",
+              suffixIcon: _isWriting == true
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Sizes.size14,
+                      ),
+                      child: IconButton(
+                        onPressed: _onTapClear,
+                        icon: FaIcon(
+                          FontAwesomeIcons.solidCircleXmark,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
           ),
+          // title: CupertinoSearchTextField(
+          //   controller: _textEditingController,
+          //   placeholder: "검색",
+          //   onChanged: _onSearchChanged,
+          //   onSubmitted: _onSearchSubmitted,
+          // ),
           bottom: TabBar(
-              onTap: (value) => _onTabIndexChanged,
+              onTap: (value) => _onTabIndexChanged(),
               splashFactory: NoSplash.splashFactory,
               padding: const EdgeInsets.symmetric(
                 horizontal: Sizes.size16,
