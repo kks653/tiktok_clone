@@ -7,9 +7,11 @@ class PostVideoButton extends StatelessWidget {
   const PostVideoButton({
     super.key,
     required this.onTapDown,
+    required this.inverted,
   });
 
   final bool onTapDown;
+  final bool inverted;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +50,10 @@ class PostVideoButton extends StatelessWidget {
             ),
           ),
         ),
-        AnimatedContainer(
-          duration: const Duration(
-            seconds: 5,
-          ),
+        Container(
+          // duration: const Duration(
+          //   seconds: 5,
+          // ),
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.size12,
           ),
@@ -60,12 +62,12 @@ class PostVideoButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               Sizes.size6,
             ),
-            color: onTapDown ? Colors.amber : Colors.white,
+            color: inverted ? Colors.black : Colors.white,
           ),
-          child: const Center(
+          child: Center(
             child: FaIcon(
               FontAwesomeIcons.plus,
-              color: Colors.black,
+              color: inverted ? Colors.white : Colors.black,
               size: Sizes.size16 + Sizes.size2,
             ),
           ),
