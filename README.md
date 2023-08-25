@@ -1,6 +1,6 @@
 # tiktok_clone
 
-A new Flutter project.
+A new Flutter project cloning tiktok app practice.
 
 ## Getting Started
 
