@@ -33,6 +33,12 @@ class _VideoCommentsState extends State<VideoComments> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
@@ -81,7 +87,7 @@ class _VideoCommentsState extends State<VideoComments> {
                       const CircleAvatar(
                         radius: 18,
                         child: Text(
-                          "니꼬",
+                          "경국",
                         ),
                       ),
                       Gaps.h10,
@@ -90,7 +96,7 @@ class _VideoCommentsState extends State<VideoComments> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "니꼬",
+                              "@kks653",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: Sizes.size14,
@@ -99,7 +105,7 @@ class _VideoCommentsState extends State<VideoComments> {
                             ),
                             Gaps.v3,
                             const Text(
-                                "That's not it I've seen the same thign but also in a cave"),
+                                "That's not it I've seen the same thing but also in a cave."),
                           ],
                         ),
                       ),
@@ -140,7 +146,7 @@ class _VideoCommentsState extends State<VideoComments> {
                           backgroundColor: Colors.grey.shade500,
                           foregroundColor: Colors.white,
                           child: const Text(
-                            "니꼬",
+                            "경국",
                           ),
                         ),
                         Gaps.h10,

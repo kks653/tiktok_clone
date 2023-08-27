@@ -80,7 +80,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      print(_scrollController.offset);
+      //print(_scrollController.offset);
       _onScroll();
     });
   }

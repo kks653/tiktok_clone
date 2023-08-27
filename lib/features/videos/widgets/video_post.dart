@@ -94,11 +94,12 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   void dispose() {
+    _animationController.dispose();
     _videoPlayerController.dispose();
     super.dispose();
   }
 
-  void _onCommentsTap(BuildContext context) async {
+  void _onTapComments(BuildContext context) async {
     if (_videoPlayerController.value.isPlaying) {
       _onTogglePause();
     }
@@ -108,9 +109,9 @@ class _VideoPostState extends State<VideoPost>
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) => const VideoComments(),
-    );
+    ).then((value) => _onTogglePause());
 
-    _onTogglePause();
+    //_onTogglePause();
   }
 
   @override
@@ -163,7 +164,7 @@ class _VideoPostState extends State<VideoPost>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  "@니꼬",
+                  "@kks653",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -203,7 +204,7 @@ class _VideoPostState extends State<VideoPost>
                 ),
                 Gaps.v24,
                 GestureDetector(
-                  onTap: () => _onCommentsTap(context),
+                  onTap: () => _onTapComments(context),
                   child: const VideoButton(
                     icon: FontAwesomeIcons.solidComment,
                     text: "33k",
