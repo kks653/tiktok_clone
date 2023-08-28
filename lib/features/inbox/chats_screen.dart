@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 
 import '../../constants/sizes.dart';
 
@@ -35,8 +36,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
         index,
         (context, animation) => SizeTransition(
           sizeFactor: animation,
-          child: const ListTile(
-            title: Text("Bye bye,"),
+          child: Container(
+            color: Colors.red,
+            child: _makeTile(index),
           ),
         ),
         duration: _duration,
@@ -44,6 +46,53 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
       _items.removeAt(index);
     }
+  }
+
+  void _onTapChat() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ChatDetailScreen(),
+      ),
+    );
+  }
+
+  Widget _makeTile(int index) {
+    return ListTile(
+      onTap: _onTapChat,
+      onLongPress: () => _deleteItem(index),
+      key: UniqueKey(),
+      leading: const CircleAvatar(
+        radius: Sizes.size32,
+        foregroundImage: NetworkImage(
+          "https://avatars.githubusercontent.com/u/3642833?v=4",
+        ),
+        child: Text(
+          "경국",
+        ),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            "Lynn ($index)",
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            "2:16 PM",
+            style: TextStyle(
+              color: Colors.grey.shade500,
+              fontSize: Sizes.size12,
+            ),
+          ),
+        ],
+      ),
+      subtitle: const Text(
+        "Don't forget to make video",
+      ),
+    );
   }
 
   @override
@@ -71,41 +120,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         itemBuilder: (context, index, animation) {
           return SizeTransition(
             sizeFactor: animation,
-            child: ListTile(
-              onLongPress: () => _deleteItem(index),
-              key: UniqueKey(),
-              leading: const CircleAvatar(
-                radius: Sizes.size32,
-                foregroundImage: NetworkImage(
-                  "https://avatars.githubusercontent.com/u/3642833?v=4",
-                ),
-                child: Text(
-                  "경국",
-                ),
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "Lynn ($index)",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    "2:16 PM",
-                    style: TextStyle(
-                      color: Colors.grey.shade500,
-                      fontSize: Sizes.size12,
-                    ),
-                  ),
-                ],
-              ),
-              subtitle: const Text(
-                "Don't forget to make video",
-              ),
-            ),
+            child: _makeTile(index),
           );
         },
       ),
