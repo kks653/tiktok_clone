@@ -9,18 +9,35 @@ import '../../constants/gaps.dart';
 import '../../generated/l10n.dart';
 
 class SignUpScreen extends StatelessWidget {
+  static String routeName = "/";
   const SignUpScreen({super.key});
 
-  void _onLoginTap(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const LoginScreen(),
-    ));
+  void _onLoginTap(BuildContext context) async {
+    final result = await Navigator.of(context).pushNamed(LoginScreen.routeName);
+    print(result);
   }
 
   void _onEmailTap(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const UsernameScreen(),
-    ));
+    // Navigator.of(context).push(PageRouteBuilder(
+    //     // transitionDuration: const Duration(
+    //     //   seconds: 1,
+    //     // ),
+    //     pageBuilder: (context, animation, secondaryAnimation) =>
+    //         const UsernameScreen(),
+    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //       final offsetAnimation =
+    //           Tween(begin: const Offset(1, 0), end: Offset.zero)
+    //               .animate(animation);
+    //       return SlideTransition(
+    //         position: offsetAnimation,
+    //         child: FadeTransition(
+    //           opacity: animation,
+    //           child: child,
+    //         ),
+    //       );
+    //     }));
+
+    Navigator.of(context).pushNamed(UsernameScreen.routeName);
   }
 
   @override

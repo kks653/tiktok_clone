@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 import '../../constants/gaps.dart';
 import 'login_form_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static String routeName = "/login";
+
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop(MaterialPageRoute(
-      builder: (context) => const SignUpScreen(),
-    ));
+    // Navigator.of(context).pop(MaterialPageRoute(
+    //   builder: (context) => const SignUpScreen(),
+    // ));
+    Navigator.of(context).pop("Hello!");
   }
 
   void _onEmailLoginTap(BuildContext context) {
