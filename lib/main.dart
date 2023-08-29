@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_clone/features/authentication/email_screen.dart';
+import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
+import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'constants/sizes.dart';
+import 'features/authentication/login_screen.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -99,7 +102,13 @@ class TikTokApp extends StatelessWidget {
           cursorColor: Color(0xFFE9435A),
         ),
       ),
-      home: const MainNavigationScreen(),
+      initialRoute: SignUpScreen.routeName,
+      routes: {
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
+        UsernameScreen.routeName: (context) => const UsernameScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        EmailScreen.routeName: (context) => const EmailScreen(),
+      },
     );
   }
 }
