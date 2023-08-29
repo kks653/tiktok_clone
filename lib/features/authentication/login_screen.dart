@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
@@ -15,7 +16,7 @@ class LoginScreen extends StatelessWidget {
     // Navigator.of(context).pop(MaterialPageRoute(
     //   builder: (context) => const SignUpScreen(),
     // ));
-    Navigator.of(context).pop("Hello!");
+    context.pop();
   }
 
   void _onEmailLoginTap(BuildContext context) {
