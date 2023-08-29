@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
+import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import 'package:tiktok_clone/features/users/widgets/persistent_tab_bar.dart';
 import 'package:tiktok_clone/features/users/widgets/user_account_detail.dart';
 
@@ -14,6 +15,14 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  void _onTapGear() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +35,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 title: const Text("경국"),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: _onTapGear,
                     icon: const FaIcon(
                       FontAwesomeIcons.gear,
                       size: Sizes.size20,
@@ -101,29 +110,68 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       ),
                     ),
                     Gaps.v14,
-                    FractionallySizedBox(
-                      widthFactor: 0.3,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: Sizes.size12,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(
-                              4,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Sizes.size12,
+                            horizontal: Sizes.size48,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(
+                                4,
+                              ),
                             ),
                           ),
-                        ),
-                        child: const Text(
-                          "Follow",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                          child: const Text(
+                            "Follow",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
-                      ),
+                        Gaps.h4,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Sizes.size7,
+                            horizontal: Sizes.size10,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(Sizes.size4),
+                            ),
+                          ),
+                          child: const FaIcon(
+                            FontAwesomeIcons.youtube,
+                          ),
+                        ),
+                        Gaps.h4,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Sizes.size7,
+                            horizontal: Sizes.size10,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(Sizes.size4),
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.arrow_drop_down,
+                          ),
+                        ),
+                      ],
                     ),
                     Gaps.v14,
                     const Padding(
@@ -131,7 +179,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         horizontal: Sizes.size32,
                       ),
                       child: Text(
-                        "All highlights and where to watch live matches on FIFA+ "
+                        "All highlights and where to watch live matches on FIFA+. "
                         "I wonder how it would look",
                         textAlign: TextAlign.center,
                       ),
