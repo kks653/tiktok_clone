@@ -8,7 +8,11 @@ import 'package:tiktok_clone/features/users/widgets/user_account_detail.dart';
 import '../../constants/sizes.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  final String username;
+  final String tab;
+
+  const UserProfileScreen(
+      {super.key, required this.username, required this.tab});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -27,12 +31,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
+        initialIndex: widget.tab == "likes" ? 1 : 0,
         length: 2,
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: const Text("경국"),
+                title: Text(widget.username),
                 actions: [
                   IconButton(
                     onPressed: _onTapGear,
@@ -46,22 +51,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 50,
-                      foregroundImage: NetworkImage(
+                      foregroundImage: const NetworkImage(
                         "https://avatars.githubusercontent.com/u/3642833?v=4",
                       ),
                       child: Text(
-                        "경국",
+                        widget.username,
                       ),
                     ),
                     Gaps.v20,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          "@kks653",
-                          style: TextStyle(
+                        Text(
+                          "@${widget.username}",
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: Sizes.size18,
                           ),
