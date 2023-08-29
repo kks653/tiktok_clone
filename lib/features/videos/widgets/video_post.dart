@@ -7,7 +7,8 @@ import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../constants/sizes.dart';
-import '../../main_navigation/widgets/video_comments.dart';
+import '../../../generated/l10n.dart';
+import 'video_comments.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -227,16 +228,16 @@ class _VideoPostState extends State<VideoPost>
                   ),
                 ),
                 Gaps.v24,
-                const VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: "2.9M",
+                  text: S.of(context).likeCount(898988889879),
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onTapComments(context),
-                  child: const VideoButton(
+                  child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
-                    text: "33k",
+                    text: S.of(context).commentCount(99898888988),
                   ),
                 ),
                 Gaps.v24,

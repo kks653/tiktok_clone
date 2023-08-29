@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
@@ -116,22 +117,23 @@ class _TutorialScreenState extends State<TutorialScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
+        bottomNavigationBar: Container(
+            color: isDarkMode(context) ? Colors.black : Colors.white,
             child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: Sizes.size24,
-            horizontal: Sizes.size24,
-          ),
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 300),
-            opacity: _showingPage == Page.first ? 0 : 1,
-            child: CupertinoButton(
-              onPressed: _onEnterPressed,
-              color: Theme.of(context).primaryColor,
-              child: const Text("Enter the app!"),
-            ),
-          ),
-        )),
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.size24,
+                horizontal: Sizes.size24,
+              ),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 300),
+                opacity: _showingPage == Page.first ? 0 : 1,
+                child: CupertinoButton(
+                  onPressed: _onEnterPressed,
+                  color: Theme.of(context).primaryColor,
+                  child: const Text("Enter the app!"),
+                ),
+              ),
+            )),
       ),
     );
   }

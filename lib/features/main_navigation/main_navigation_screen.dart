@@ -7,6 +7,7 @@ import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import '../../utils.dart';
 import '../inbox/inbox_screen.dart';
 import 'widgets/post_video_button.dart';
 
@@ -18,7 +19,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 0;
   bool _onTapDown = false;
   Color buttonColor = Colors.white;
 
@@ -81,6 +82,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
@@ -104,10 +106,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: _selectedIndex == 0 ? Colors.black : Colors.white,
+      bottomNavigationBar: Container(
+        color: _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(Sizes.size12),
+          padding: const EdgeInsets.only(
+            bottom: Sizes.size32,
+          ),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             NavTab(
