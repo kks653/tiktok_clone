@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -32,6 +33,8 @@ class _VideoPostState extends State<VideoPost>
 
   late AnimationController _animationController;
 
+  bool _isMuted = false;
+
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
       if (_videoPlayerController.value.duration ==
@@ -42,6 +45,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
@@ -74,6 +78,12 @@ class _VideoPostState extends State<VideoPost>
   void _initVideoPlay() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
+
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+      _isMuted = true;
+    }
+
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
@@ -90,6 +100,16 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+  }
+
+  void _onTapVolumeMute() {
+    setState(() {
+      _isMuted
+          ? _videoPlayerController.setVolume(1)
+          : _videoPlayerController.setVolume(0);
+
+      _isMuted = !_isMuted;
+    });
   }
 
   @override
@@ -187,6 +207,15 @@ class _VideoPostState extends State<VideoPost>
             right: 10,
             child: Column(
               children: [
+                GestureDetector(
+                  onTap: _onTapVolumeMute,
+                  child: VideoButton(
+                    icon: _isMuted
+                        ? FontAwesomeIcons.volumeXmark
+                        : FontAwesomeIcons.volumeHigh,
+                    text: " ",
+                  ),
+                ),
                 const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
