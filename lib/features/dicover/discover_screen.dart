@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import 'break_points.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -21,8 +24,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     "Shopping",
     "Brands",
   ];
+
   final TextEditingController _textEditingController =
-      TextEditingController(text: "Text controller");
+      TextEditingController(text: "Initial Text");
 
   bool _isWriting = true;
 
@@ -66,6 +70,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -82,51 +87,59 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ],
           centerTitle: true,
           elevation: 1,
-          title: TextField(
-            //maxLines: 1,
-            //maxLength: 20,
-            controller: _textEditingController,
-            onChanged: _onSearchChanged,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey.shade200,
-              border: const OutlineInputBorder(
-                borderSide: BorderSide.none,
+          // title: TextField(
+          //   //maxLines: 1,
+          //   //maxLength: 20,
+          //   controller: _textEditingController,
+          //   onChanged: _onSearchChanged,
+          //   decoration: InputDecoration(
+          //     filled: true,
+          //     fillColor: Colors.grey.shade200,
+          //     border: const OutlineInputBorder(
+          //       borderSide: BorderSide.none,
+          //     ),
+          //     prefixIcon: const Padding(
+          //       padding: EdgeInsets.symmetric(
+          //         vertical: Sizes.size14,
+          //         horizontal: Sizes.size14,
+          //       ),
+          //       child: FaIcon(
+          //         FontAwesomeIcons.magnifyingGlass,
+          //         color: Colors.black,
+          //         size: Sizes.size16 + Sizes.size2,
+          //       ),
+          //     ),
+          //     hintText: "Search",
+          //     suffixIcon: _isWriting == true
+          //         ? Padding(
+          //             padding: const EdgeInsets.symmetric(
+          //               vertical: Sizes.size14,
+          //             ),
+          //             child: IconButton(
+          //               onPressed: _onTapClear,
+          //               icon: FaIcon(
+          //                 FontAwesomeIcons.solidCircleXmark,
+          //                 color: Colors.grey.shade500,
+          //               ),
+          //             ),
+          //           )
+          //         : null,
+          //   ),
+          // ),
+          title: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: Breakpoints.sm,
+            ),
+            child: CupertinoSearchTextField(
+              controller: _textEditingController,
+              placeholder: "검색",
+              onChanged: _onSearchChanged,
+              onSubmitted: _onSearchSubmitted,
+              style: TextStyle(
+                color: isDarkMode(context) ? Colors.white : Colors.black,
               ),
-              prefixIcon: const Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: Sizes.size14,
-                  horizontal: Sizes.size14,
-                ),
-                child: FaIcon(
-                  FontAwesomeIcons.magnifyingGlass,
-                  color: Colors.black,
-                  size: Sizes.size16 + Sizes.size2,
-                ),
-              ),
-              hintText: "Search",
-              suffixIcon: _isWriting == true
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: Sizes.size14,
-                      ),
-                      child: IconButton(
-                        onPressed: _onTapClear,
-                        icon: FaIcon(
-                          FontAwesomeIcons.solidCircleXmark,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
-                    )
-                  : null,
             ),
           ),
-          // title: CupertinoSearchTextField(
-          //   controller: _textEditingController,
-          //   placeholder: "검색",
-          //   onChanged: _onSearchChanged,
-          //   onSubmitted: _onSearchSubmitted,
-          // ),
           bottom: TabBar(
               onTap: (value) => _onTabIndexChanged(),
               splashFactory: NoSplash.splashFactory,
@@ -138,9 +151,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 fontWeight: FontWeight.w600,
                 fontSize: Sizes.size16,
               ),
-              indicatorColor: Colors.black,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey.shade500,
+              indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
               tabs: [
                 for (var tab in tabs)
                   Tab(
@@ -158,8 +169,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               padding: const EdgeInsets.all(
                 Sizes.size6,
               ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: width > Breakpoints.lg ? 5 : 2,
                 crossAxisSpacing: Sizes.size10,
                 mainAxisSpacing: Sizes.size10,
                 childAspectRatio: 9 / 16,
@@ -190,12 +201,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     style: TextStyle(
                       fontSize: Sizes.size16 + Sizes.size2,
                       fontWeight: FontWeight.bold,
+                      height: 1.1,
                     ),
                   ),
                   Gaps.v5,
                   DefaultTextStyle(
                     style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: isDarkMode(context)
+                          ? Colors.grey.shade300
+                          : Colors.grey.shade600,
                       fontWeight: FontWeight.w600,
                     ),
                     child: Row(

@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
+import '../../../generated/l10n.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -55,8 +56,8 @@ class _VideoCommentsState extends State<VideoComments> {
         appBar: AppBar(
           backgroundColor: Colors.grey.shade50,
           automaticallyImplyLeading: false,
-          title: const Text(
-            "222792 comments",
+          title: Text(
+            S.of(context).commentTitle(912929812938, 101000000),
           ),
           actions: [
             IconButton(
@@ -133,11 +134,14 @@ class _VideoCommentsState extends State<VideoComments> {
               Positioned(
                 bottom: 0,
                 width: size.width,
-                child: BottomAppBar(
+                child: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size16,
-                      vertical: Sizes.size16,
+                    padding: const EdgeInsets.only(
+                      left: Sizes.size16,
+                      right: Sizes.size16,
+                      top: Sizes.size10,
+                      bottom: Sizes.size36,
                     ),
                     child: Row(
                       children: [
