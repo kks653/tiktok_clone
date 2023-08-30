@@ -31,15 +31,11 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
@@ -47,5 +43,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please let me see your photos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Your own description</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To enable microphone access when recording video</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To enable GPS location access for Exif data</string>
 </dict>
 </plist>
