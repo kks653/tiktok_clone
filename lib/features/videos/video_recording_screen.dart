@@ -10,7 +10,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/features/videos/video_preview_screen.dart';
 
 import '../../constants/sizes.dart';
-import 'widgets/flash_mode_button.dart';
+import 'views/widgets/flash_mode_button.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   static const String routeName = "postVideo";
