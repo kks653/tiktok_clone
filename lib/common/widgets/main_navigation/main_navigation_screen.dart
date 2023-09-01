@@ -118,6 +118,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         color: _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.only(
+            top: Sizes.size10,
             bottom: Sizes.size32,
           ),
           child:

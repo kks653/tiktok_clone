@@ -1,27 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = false;
-
-  void _onNotificationsChanged(bool? newValue) {
-    if (newValue == null) return;
-
-    setState(() {
-      _notifications = newValue;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Settings"),
@@ -29,18 +16,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: ListView(
           children: [
             SwitchListTile.adaptive(
-              value: false,
-              onChanged: (value) => {},
-              title: const Text(
-                "Mute video",
-              ),
+              value: ref.watch(playbackConfigProvider).muted,
+              onChanged: (value) =>
+                  {ref.read(playbackConfigProvider.notifier).setMuted(value)},
+              title: const Text("Mute video"),
               subtitle: const Text(
                 "Videos will be muted by default.",
               ),
             ),
             SwitchListTile.adaptive(
-              value: false,
-              onChanged: (value) => {},
+              value: ref.watch(playbackConfigProvider).autoplay,
+              onChanged: (value) => {
+                ref.read(playbackConfigProvider.notifier).setAutoplay(value)
+              },
               title: const Text(
                 "Autoplay",
               ),
@@ -49,8 +37,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             SwitchListTile.adaptive(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
+              value: false,
+              onChanged: (value) {},
               title: const Text(
                 "Enable notifications",
               ),
@@ -59,8 +47,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             CheckboxListTile(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
+              value: false,
+              onChanged: (value) {},
               title: const Text("Enable notifications"),
               activeColor: Colors.black,
             ),
