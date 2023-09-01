@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/authentication/view_models/signup_view_model.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
+import '../../../constants/gaps.dart';
+import '../../../constants/sizes.dart';
 import 'password_screen.dart';
-import 'widgets/form_button.dart';
+import '../widgets/form_button.dart';
 
 class EmailScreenArgs {
   final String username;
@@ -64,7 +64,8 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
 
   void _onSubmit() {
     if (_email.isEmpty || _isEmailValid() != null) return;
-    ref.read(signUpForm.notifier).state = {"email": _email};
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {...state, "email": _email};
 
     Navigator.push(
         context,

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/utils.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
-import 'break_points.dart';
+import '../../../constants/gaps.dart';
+import '../../../constants/sizes.dart';
+import '../../../common/break_points.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
+import '../../../constants/gaps.dart';
+import '../../../constants/sizes.dart';
 import 'tutorial_screen.dart';
-import 'widgets/interest_button.dart';
+import '../widgets/interest_button.dart';
 
 const interests = [
   "Daily Life",

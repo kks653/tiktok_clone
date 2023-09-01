@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '459258905441',
     projectId: 'tiktok-kks653',
     storageBucket: 'tiktok-kks653.appspot.com',
+    androidClientId: '459258905441-q6gg8a6q3nanvmj4bif1dkdk2fo7ars8.apps.googleusercontent.com',
     iosClientId: '459258905441-ug5nc7vhrb376vfk9ik8kv6tvjb577oo.apps.googleusercontent.com',
     iosBundleId: 'com.example.tiktokClone',
   );

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/utils.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
+import '../../../constants/gaps.dart';
+import '../../../constants/sizes.dart';
 
 enum Direction {
   right,
@@ -115,22 +115,23 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: Container(
-            color: isDarkMode(context) ? Colors.black : Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size24,
-                horizontal: Sizes.size24,
+          color: isDarkMode(context) ? Colors.black : Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: Sizes.size24,
+              horizontal: Sizes.size24,
+            ),
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 300),
+              opacity: _showingPage == Page.first ? 0 : 1,
+              child: CupertinoButton(
+                onPressed: _onEnterPressed,
+                color: Theme.of(context).primaryColor,
+                child: const Text("Enter the app!"),
               ),
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _showingPage == Page.first ? 0 : 1,
-                child: CupertinoButton(
-                  onPressed: _onEnterPressed,
-                  color: Theme.of(context).primaryColor,
-                  child: const Text("Enter the app!"),
-                ),
-              ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

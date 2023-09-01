@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
-import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../constants/sizes.dart';
-import '../../../../generated/l10n.dart';
+import '../../../constants/sizes.dart';
+import '../../../generated/l10n.dart';
 import 'video_comments.dart';
 
 class VideoPost extends ConsumerStatefulWidget {

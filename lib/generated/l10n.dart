@@ -164,6 +164,56 @@ class S {
       args: [valueString, value2],
     );
   }
+
+  /// `Edit profile`
+  String get editProfileTitle {
+    return Intl.message(
+      'Edit profile',
+      name: 'editProfileTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bio`
+  String get bio {
+    return Intl.message(
+      'Bio',
+      name: 'bio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit bio`
+  String get editBio {
+    return Intl.message(
+      'Edit bio',
+      name: 'editBio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Link`
+  String get link {
+    return Intl.message(
+      'Link',
+      name: 'link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit link`
+  String get editLink {
+    return Intl.message(
+      'Edit link',
+      name: 'editLink',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

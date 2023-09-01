@@ -53,5 +53,10 @@
         "format": "compact"
       }
     }
-  }
+  },
+  "editProfileTitle": "Edit profile",
+  "bio": "Bio",
+  "editBio": "Edit bio",
+  "link": "Link",
+  "editLink": "Edit link"
 }

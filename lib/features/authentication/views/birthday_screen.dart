@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/authentication/view_models/signup_view_model.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
-import 'widgets/form_button.dart';
+import '../../../constants/gaps.dart';
+import '../../../constants/sizes.dart';
+import '../widgets/form_button.dart';
 
 class BirthdayScreen extends ConsumerStatefulWidget {
   const BirthdayScreen({super.key});
@@ -20,6 +20,8 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   DateTime initialDate = DateTime(DateTime.now().year - 12);
   DateTime minAge = DateTime(12);
 
+  String _birthday = "undefined";
+
   @override
   void initState() {
     super.initState();
@@ -33,12 +35,17 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   }
 
   void _onNextTap() {
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {...state, "birthday": _birthday};
+
     ref.read(signUpProvider.notifier).signUp(context);
   }
 
   void _setTextFieldDate(DateTime date) {
-    final textDate = date.toString().split(" ").first;
-    _birthdayController.value = TextEditingValue(text: textDate);
+    _birthday = date.toString().split(" ").first;
+    _birthdayController.value = TextEditingValue(text: _birthday);
+
+    //ref.read(usersProvider.notifier).setBirthDate(textDate);
   }
 
   @override

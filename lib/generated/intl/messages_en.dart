@@ -43,11 +43,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "appleButton":
             MessageLookupByLibrary.simpleMessage("Continue with Apple"),
+        "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "commentCount": m0,
         "commentTitle": m1,
+        "editBio": MessageLookupByLibrary.simpleMessage("Edit bio"),
+        "editLink": MessageLookupByLibrary.simpleMessage("Edit link"),
+        "editProfileTitle":
+            MessageLookupByLibrary.simpleMessage("Edit profile"),
         "emailPasswordButton":
             MessageLookupByLibrary.simpleMessage("Use email & password"),
         "likeCount": m2,
+        "link": MessageLookupByLibrary.simpleMessage("Link"),
         "logIn": m3,
         "loginTitle": m4,
         "signUpSubtitle": m5,

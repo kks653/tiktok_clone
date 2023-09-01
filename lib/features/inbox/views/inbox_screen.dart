@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/features/inbox/activity_screen.dart';
-import 'package:tiktok_clone/features/inbox/chats_screen.dart';
+import 'package:tiktok_clone/features/inbox/views/activity_screen.dart';
+import 'package:tiktok_clone/features/inbox/views/chats_screen.dart';
 
-import '../../constants/sizes.dart';
+import '../../../constants/sizes.dart';
 
 class InboxScreen extends StatefulWidget {
   const InboxScreen({super.key});

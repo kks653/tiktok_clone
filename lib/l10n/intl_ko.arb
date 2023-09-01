@@ -16,5 +16,10 @@
   "logIn": "Log in",
   "likeCount": "{value}",
   "commentCount": "{value}",
-  "commentTitle": "{value}{value2, plural, =1{개의 댓글} other{개의 댓글}}"
+  "commentTitle": "{value}{value2, plural, =1{개의 댓글} other{개의 댓글}}",
+  "editProfileTitle": "프로필 편집",
+  "bio": "소개",
+  "editBio": "소개 편집",
+  "link": "링크",
+  "editLink": "링크 편집"
 }
