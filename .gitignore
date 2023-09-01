@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 assets/images/placeholder.jpeg
+
+
+/ios/Runner/GoogleService-Info.plist
+/macOS/Runner/GoogleService-Info.plist
