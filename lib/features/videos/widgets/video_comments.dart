@@ -44,7 +44,7 @@ class _VideoCommentsState extends State<VideoComments> {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height * 0.7,
+      height: size.height * 0.9,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(

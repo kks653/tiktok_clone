@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/authentication/repos/authentication_repo.dart';
 import 'package:tiktok_clone/features/authentication/view_models/signup_view_model.dart';
 import 'package:tiktok_clone/features/users/models/user_profile_model.dart';
@@ -10,8 +12,6 @@ import 'package:tiktok_clone/features/users/repos/user_repo.dart';
 class UserProfileViewModel extends AsyncNotifier<UserProfileModel> {
   late final UserRepository _usersRepository;
   late final AuthenticationRepository _authenticationRepository;
-  // String _bio = "undefined";
-  // String _username = "undefined";
 
   @override
   FutureOr<UserProfileModel> build() async {
@@ -61,16 +61,27 @@ class UserProfileViewModel extends AsyncNotifier<UserProfileModel> {
     await _usersRepository.updateUser(state.value!.uid, {"hasAvatar": true});
   }
 
-  // void setBirthDate(Stri~ng birthDate) {
-  //   _bio = birthDate;
-  // }
+  Future<void> onBioUpdate(
+      String bio, String link, BuildContext context) async {
+    if (state.value == null) return;
 
-  // void setUsername(String username) {
-  //   _username = username;
-  // }
+    if (state.value!.bio != bio && state.value!.link != link) {
+      state = AsyncValue.data(state.value!.copywith(bio: bio, link: link));
+      await _usersRepository
+          .updateUser(state.value!.uid, {"bio": bio, "link": link});
+    } else if (state.value!.bio != bio && state.value!.link == link) {
+      state = AsyncValue.data(state.value!.copywith(bio: bio));
+      await _usersRepository.updateUser(state.value!.uid, {"bio": bio});
+    } else {
+      state = AsyncValue.data(state.value!.copywith(link: link));
+      await _usersRepository.updateUser(state.value!.uid, {"link": link});
+    }
+
+    context.pop();
+  }
 }
 
-final usersProvider =
+final userProfileProvider =
     AsyncNotifierProvider<UserProfileViewModel, UserProfileModel>(
   () => UserProfileViewModel(),
 );

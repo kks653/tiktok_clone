@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/features/settings/views/settings_screen.dart';
+import 'package:tiktok_clone/features/users/view_models/user_profile_edit_view_model.dart';
 import 'package:tiktok_clone/features/users/view_models/user_profile_view_model.dart';
 import 'package:tiktok_clone/features/users/widgets/user_profile_edit_sheet.dart';
 import 'package:tiktok_clone/features/users/widgets/avatar.dart';
@@ -33,7 +34,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
 
   void _onTapEditBio(BuildContext context) async {
     await showModalBottomSheet(
-      isScrollControlled: false,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) => const UserProfileEditSheet(),
@@ -45,7 +46,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ref.watch(usersProvider).when(
+    return ref.watch(userProfileProvider).when(
           error: (error, stackTrace) => Center(
             child: Text(error.toString()),
           ),
@@ -205,28 +206,27 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                             ],
                           ),
                           Gaps.v14,
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
                               horizontal: Sizes.size32,
                             ),
                             child: Text(
-                              "All highlights and where to watch live matches on FIFA+. "
-                              "I wonder how it would look",
+                              ref.read(userProfileProvider).value!.bio,
                               textAlign: TextAlign.center,
                             ),
                           ),
                           Gaps.v14,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              FaIcon(
+                            children: [
+                              const FaIcon(
                                 FontAwesomeIcons.link,
                                 size: Sizes.size12,
                               ),
                               Gaps.h4,
                               Text(
-                                "https://www.google.com",
-                                style: TextStyle(
+                                ref.read(userProfileProvider).value!.link,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

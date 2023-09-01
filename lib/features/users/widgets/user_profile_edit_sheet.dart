@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tiktok_clone/features/users/view_models/user_profile_edit_view_model.dart';
+import 'package:tiktok_clone/features/users/view_models/user_profile_view_model.dart';
+import 'package:tiktok_clone/features/users/widgets/user_profile_editing_field.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 import '../../../generated/l10n.dart';
-import '../../authentication/widgets/form_button.dart';
 
 class UserProfileEditSheet extends ConsumerStatefulWidget {
   const UserProfileEditSheet({super.key});
@@ -15,12 +19,29 @@ class UserProfileEditSheet extends ConsumerStatefulWidget {
 }
 
 class _UserProfileEditScreenState extends ConsumerState<UserProfileEditSheet> {
-  final TextEditingController _bioEditingController =
-      TextEditingController(text: "Bio");
-  final TextEditingController _linkEditingController =
-      TextEditingController(text: "Link");
+  late final TextEditingController _bioEditingController;
+  late final TextEditingController _linkEditingController;
 
-  void _onSave() {}
+  bool isEdited = false;
+
+  Future<void> _onTapSave() async {
+    if (!ref.watch(userProfileEditProvider).isEdited) return;
+
+    await ref.read(userProfileProvider.notifier).onBioUpdate(
+        _bioEditingController.value.text,
+        _linkEditingController.value.text,
+        context);
+  }
+
+  @override
+  void initState() {
+    _bioEditingController =
+        TextEditingController(text: ref.read(userProfileProvider).value!.bio);
+    _linkEditingController =
+        TextEditingController(text: ref.read(userProfileProvider).value!.link);
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -39,83 +60,69 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditSheet> {
         ),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(S.of(context).editProfileTitle),
-          actions: const [
+          actions: [
             CloseButton(
+              onPressed: () {
+                ref.read(userProfileEditProvider.notifier).onChanged(false);
+                context.pop();
+              },
               color: Colors.black,
             ),
           ],
         ),
-        body: Padding(
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Sizes.size10,
+                vertical: Sizes.size20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  UserProfileEditingField(
+                    bioEditingController: _bioEditingController,
+                    labelText: S.of(context).bio,
+                    helperText: S.of(context).editBio,
+                    maxLength: 100,
+                    maxLines: 3,
+                  ),
+                  Gaps.v32,
+                  UserProfileEditingField(
+                    bioEditingController: _linkEditingController,
+                    labelText: S.of(context).link,
+                    helperText: S.of(context).editLink,
+                    maxLength: 50,
+                    maxLines: 2,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.size10,
-            vertical: Sizes.size20,
+            vertical: Sizes.size24,
+            horizontal: Sizes.size24,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              EditingProfileField(
-                textEditingController: _bioEditingController,
-                labelText: S.of(context).bio,
-                helperText: S.of(context).editBio,
-              ),
-              Gaps.v32,
-              EditingProfileField(
-                textEditingController: _linkEditingController,
-                labelText: S.of(context).link,
-                helperText: S.of(context).editLink,
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: GestureDetector(
-          onTap: _onSave,
-          child: const Padding(
-            padding: EdgeInsets.all(
-              Sizes.size40,
-            ),
-            child: FormButton(
-              disabled: true,
-              text: "save",
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: !ref.watch(userProfileEditProvider).isEdited ? 0 : 1,
+            child: CupertinoButton(
+              onPressed: _onTapSave,
+              color: Theme.of(context).primaryColor,
+              child: const Text("Save"),
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class EditingProfileField extends StatelessWidget {
-  const EditingProfileField({
-    super.key,
-    required this.textEditingController,
-    required this.labelText,
-    required this.helperText,
-  });
-
-  final TextEditingController textEditingController;
-  final String labelText;
-  final String helperText;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: textEditingController,
-      decoration: InputDecoration(
-        labelText: labelText,
-        helperText: helperText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            Sizes.size12,
-          ),
-        ),
-      ),
-      // expands: true,
-      // minLines: null,
-      // maxLines: null,
-      // textInputAction: TextInputAction.newline,
     );
   }
 }
