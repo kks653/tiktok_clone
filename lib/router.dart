@@ -13,6 +13,7 @@ import 'features/inbox/chats_screen.dart';
 import 'features/videos/video_recording_screen.dart';
 
 final routerProver = Provider((ref) {
+  //ref.watch(authState);
   return GoRouter(
     initialLocation: "/home",
     redirect: (context, state) {
