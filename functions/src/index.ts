@@ -40,7 +40,20 @@ export const onVideoCreated = functions.firestore
             `/tmp/${snapshot.id}.jpg`
         ]);
         const storgae = admin.storage();
-        await storgae.bucket().upload(`/tmp/${snapshot.id}.jpg`, {
+        const [file, _] = await storgae.bucket().upload(`/tmp/${snapshot.id}.jpg`, {
             destination:`thumbnails/${snapshot.id}.jpg`,
-        })
+        });
+        await file.makePublic();
+        await snapshot.ref.update({thumbnailUrl: file.publicUrl()});
+
+        const db = admin.firestore();
+        
+        db.collection("users")
+        .doc(video.creatorUid)
+        .collection("videos")
+        .doc(snapshot.id)
+        .set({
+            thumbnailUrl: file.publicUrl(),
+            videoId: snapshot.id,
+        });
 });

@@ -1,27 +1,24 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tiktok_clone/features/videos/repos/videos_repo.dart';
 
 import '../models/video_model.dart';
 
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
-  List<VideoModel> _list = [
-    //VideoModel(title: "First video"),
-  ];
-
-  void uploadVideo() async {
-    state = const AsyncValue.loading();
-    await Future.delayed(const Duration(seconds: 2));
-
-    //final newVideo = VideoModel(title: "${DateTime.now()}");
-    _list = [..._list];
-    state = AsyncValue.data(_list);
-  }
+  late final VideosRepository _repository;
+  List<VideoModel> _list = [];
 
   @override
   FutureOr<List<VideoModel>> build() async {
-    // await Future.delayed(const Duration(seconds: 5));
-    // throw Exception("OMG Can't fetch");
+    _repository = ref.read(videosRepo);
+    final result = await _repository.fetchVideos();
+    final newList = result.docs.map((doc) => VideoModel.fromJson(
+          doc.data(),
+        ));
+    print(newList);
+
+    _list = newList.toList();
     return _list;
   }
 }
