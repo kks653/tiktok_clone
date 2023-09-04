@@ -25,12 +25,31 @@ class VideosRepository {
     await _db.collection("videos").add(data.toJson());
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos() async {
-    return await _db
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos(
+      {int? lastItemCreatedAt}) async {
+    final query = _db
         .collection("videos")
-        .where("likes")
         .orderBy("createdAt", descending: true)
-        .get();
+        .limit(2);
+
+    if (lastItemCreatedAt == null) {
+      return await query.get();
+    } else {
+      return await query.startAfter([lastItemCreatedAt]).get();
+    }
+  }
+
+  Future<void> likeVideo(String videoId, String uid) async {
+    final query = _db.collection("likes").doc("${videoId}000$uid");
+    final like = await query.get();
+
+    if (!like.exists) {
+      await query.set({
+        "createdAt": DateTime.now().millisecondsSinceEpoch,
+      });
+    } else {
+      await query.delete();
+    }
   }
 }
 

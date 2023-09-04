@@ -15,7 +15,7 @@ import 'features/videos/views/video_recording_screen.dart';
 final routerProver = Provider((ref) {
   //ref.watch(authState);
   return GoRouter(
-    initialLocation: "/profile",
+    initialLocation: "/home",
     redirect: (context, state) {
       final isLoggedIn = ref.read(authRepo).isLoggedIn;
       if (!isLoggedIn) {

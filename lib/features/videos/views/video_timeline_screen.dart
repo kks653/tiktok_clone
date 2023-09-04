@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/features/videos/view_models/timeline_vm.dart';
+import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/widgets/video_post.dart';
 
 class VideoTimelineScreen extends ConsumerStatefulWidget {
@@ -11,7 +11,7 @@ class VideoTimelineScreen extends ConsumerStatefulWidget {
 }
 
 class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
-  int _itemCount = 4;
+  int _itemCount = 0;
 
   final _scrollDuration = const Duration(milliseconds: 150);
   final _scrollCurver = Curves.linear;
@@ -34,8 +34,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
     );
 
     if (currentPage == (_itemCount - 1)) {
-      _itemCount = _itemCount + 4;
-      setState(() {});
+      ref.watch(timelineProvider.notifier).fetchNextPage();
     }
   }
 
@@ -45,25 +44,27 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
     super.dispose();
   }
 
-  Future<void> _onRefresh() {
-    return Future.delayed(const Duration(seconds: 5));
+  Future<void> _onRefresh() async {
+    return ref.watch(timelineProvider.notifier).refresh();
   }
 
   @override
   Widget build(BuildContext context) {
     return ref.watch(timelineProvider).when(
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          error: (error, stackTrace) => Center(
-            child: Text(
-              "Could not load videos: $error",
-              style: const TextStyle(
-                color: Colors.white,
+        loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+        error: (error, stackTrace) => Center(
+              child: Text(
+                "Could not load videos: $error",
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          data: (videos) => RefreshIndicator(
+        data: (videos) {
+          _itemCount = videos.length;
+          return RefreshIndicator(
             displacement: 50,
             edgeOffset: 20,
             color: Theme.of(context).primaryColor,
@@ -74,12 +75,14 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
                 scrollDirection: Axis.vertical,
                 itemCount: videos.length,
                 itemBuilder: (context, index) {
+                  final videoData = videos[index];
                   return VideoPost(
                     onVideoFinished: _onVideoFinished,
                     index: index,
+                    videoData: videoData,
                   );
                 }),
-          ),
-        );
+          );
+        });
   }
 }
