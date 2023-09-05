@@ -20,7 +20,7 @@ class VideoPostViewModel extends FamilyAsyncNotifier<void, String> {
   }
 }
 
-final videoPostProvied =
+final videoPostProvider =
     AsyncNotifierProvider.family<VideoPostViewModel, void, String>(
   () => VideoPostViewModel(),
 );
