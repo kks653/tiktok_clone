@@ -23,6 +23,32 @@ class VideoModel {
     required this.creator,
   });
 
+  VideoModel copywith({
+    String? id,
+    String? description,
+    String? fileUrl,
+    String? thumbnailUrl,
+    String? creatorUid,
+    String? creator,
+    String? title,
+    int? likes,
+    int? comments,
+    int? createdAt,
+  }) {
+    return VideoModel(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      fileUrl: fileUrl ?? this.fileUrl,
+      thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
+      creatorUid: creatorUid ?? this.creatorUid,
+      likes: likes ?? this.likes,
+      comments: comments ?? this.comments,
+      createdAt: createdAt ?? this.createdAt,
+      title: title ?? this.title,
+      creator: creator ?? this.creator,
+    );
+  }
+
   VideoModel.fromJson(
       {required Map<String, dynamic> json, required String videoId})
       : description = json["description"],

@@ -86,7 +86,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               fontSize: Sizes.size12,
             ),
           ),
-          trailing: Row(mainAxisSize: MainAxisSize.min, children: const [
+          trailing: const Row(mainAxisSize: MainAxisSize.min, children: [
             FaIcon(
               FontAwesomeIcons.flag,
               color: Colors.black,
@@ -174,96 +174,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               //color: Colors.grey.shade50,
               child: Column(
                 children: [
-                  Visibility(
-                    visible: _showSuggestedEmoji,
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(
-                            Sizes.size7,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(
-                              Sizes.size24,
-                            ),
-                          ),
-                          child: Row(
-                            children: const [
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Gaps.h10,
-                        Container(
-                          padding: const EdgeInsets.all(
-                            Sizes.size7,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(
-                              Sizes.size24,
-                            ),
-                          ),
-                          child: Row(
-                            children: const [
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Gaps.h10,
-                        Container(
-                          padding: const EdgeInsets.all(
-                            Sizes.size7,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(
-                              Sizes.size24,
-                            ),
-                          ),
-                          child: Row(
-                            children: const [
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                size: Sizes.size20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Row(
                     children: [
                       Expanded(
@@ -295,9 +205,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                         ),
                       ),
                       Gaps.h10,
-                      Container(
-                        child: const FaIcon(FontAwesomeIcons.paperPlane),
-                      )
+                      const FaIcon(FontAwesomeIcons.paperPlane)
                     ],
                   ),
                 ],

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/features/settings/views/settings_screen.dart';
-import 'package:tiktok_clone/features/users/view_models/user_profile_edit_view_model.dart';
 import 'package:tiktok_clone/features/users/view_models/user_profile_view_model.dart';
 import 'package:tiktok_clone/features/users/widgets/user_profile_edit_sheet.dart';
 import 'package:tiktok_clone/features/users/widgets/avatar.dart';
@@ -282,11 +281,11 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                                   ),
                                 ),
                               ),
-                            Positioned(
+                            const Positioned(
                               bottom: Sizes.size3,
                               left: Sizes.size3,
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.play_arrow_outlined,
                                     color: Colors.white,

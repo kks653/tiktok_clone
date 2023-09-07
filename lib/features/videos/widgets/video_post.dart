@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
+import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/video_post_view_model.dart';
 import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:video_player/video_player.dart';
@@ -85,6 +86,9 @@ class VideoPostState extends ConsumerState<VideoPost>
 
   void _onLikeTap() {
     ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+    ref
+        .read(videoPostProvider(widget.videoData.id).notifier)
+        .refreshLikedCount();
   }
 
   void _initVideoPlay() async {
@@ -252,6 +256,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                         ? FontAwesomeIcons.volumeXmark
                         : FontAwesomeIcons.volumeHigh,
                     text: " ",
+                    color: Colors.white,
                   ),
                 ),
                 CircleAvatar(
@@ -270,19 +275,30 @@ class VideoPostState extends ConsumerState<VideoPost>
                   onTap: _onLikeTap,
                   child: VideoButton(
                     icon: FontAwesomeIcons.solidHeart,
-                    text: S.of(context).likeCount(widget.videoData.likes),
+                    text: S.of(context).likeCount(ref
+                        .watch(videoPostProvider(widget.videoData.id))
+                        .value!
+                        .likesCount),
+                    color: ref
+                            .watch(videoPostProvider(widget.videoData.id))
+                            .value!
+                            .isLiked
+                        ? Colors.red
+                        : Colors.white,
                   ),
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onTapComments(context),
                   child: VideoButton(
+                    color: Colors.white,
                     icon: FontAwesomeIcons.solidComment,
                     text: S.of(context).commentCount(widget.videoData.comments),
                   ),
                 ),
                 Gaps.v24,
                 const VideoButton(
+                  color: Colors.white,
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 ),
